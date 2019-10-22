@@ -1,5 +1,8 @@
-function! IH()
+function! IH(...)
   let pattern=getreg("/")
-  execute "syntax match mygroup123 /" . pattern . "/"
-  hi mygroup123 ctermfg=black ctermbg=red
+  let groupname = "insta" . trim(system("echo '" . pattern . "' | md5sum - | cut -c1-10"))
+  execute "syntax match " . groupname . " /" . pattern . "/"
+  execute "hi " . groupname . " ctermfg=black ctermbg=" . get(a:, 1, "red")
 endfunction
+
+
